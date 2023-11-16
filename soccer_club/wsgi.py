@@ -1,5 +1,5 @@
 """
-WSGI config for SoccerClub project.
+WSGI config for soccer_club project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SoccerClub.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'soccer_club.settings')
 
 application = get_wsgi_application()
