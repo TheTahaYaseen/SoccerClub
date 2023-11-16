@@ -70,7 +70,7 @@ def login_view(request):
                 login(request, user)
                 return redirect("home")
             else:
-                error = "An Error Occured During Login! Credential Maybe Incorrect!"
+                error = "An Error Occured During Login! Credentials Maybe Incorrect!"
 
     context = {"page_header": page_header, "error": error, 
                "username": username, "password": password}

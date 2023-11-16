@@ -59,8 +59,9 @@ def validate_credentials(username, email, phone_number, password, password_confi
     return error
 
 def create_user_profile(username, email, phone_number, password):
+    error = ""
     try:
-        associated_user = User.objects.get_or_create(
+        associated_user, created = User.objects.get_or_create(
             username = username,
         )
         UserProfile.objects.create(
