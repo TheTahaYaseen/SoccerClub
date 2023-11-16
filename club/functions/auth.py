@@ -57,3 +57,17 @@ def validate_credentials(username, email, phone_number, password, password_confi
         error = "Email Already Used!"
 
     return error
+
+def create_user_profile(username, email, phone_number, password):
+    try:
+        associated_user = User.objects.get_or_create(
+            username = username,
+        )
+        UserProfile.objects.create(
+            associated_user = associated_user,
+            email = email,
+            phone_number = phone_number
+        )
+    except Exception:
+        error = "An Error Occured While Registering You!"
+    return error

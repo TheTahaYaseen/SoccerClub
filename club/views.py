@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
-from .functions.auth import validate_credentials
+from .functions.auth import create_user_profile, validate_credentials
 
 # Create your views here.
 def home_view(request):
@@ -28,6 +28,12 @@ def register_view(request):
         password_confirmation = request.POST.get("password_confirmation")
 
         error = validate_credentials(username, email, phone_number, password, password_confirmation)
+
+        if not error:
+            error = create_user_profile(username, email, phone_number, password)
+
+            if not error:
+                return redirect("home")
 
     context = {"page_header": page_header, 
                "error": error, 
