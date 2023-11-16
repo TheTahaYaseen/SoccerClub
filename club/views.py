@@ -74,4 +74,13 @@ def login_view(request):
 
     context = {"page_header": page_header, "error": error, 
                "username": username, "password": password}
+
     return render(request, "auth/login.html", context)
+
+def logout_view(request):
+
+    if request.user.is_authenticated:
+        logout(request)
+
+    previous_page = request.META.get('HTTP_REFERER', '/')
+    return redirect(previous_page)
