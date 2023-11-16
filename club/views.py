@@ -10,6 +10,9 @@ def home_view(request):
 
 def register_view(request):
     
+    if request.user.is_authenticated:
+        return redirect("home")
+
     page_header = "Register"
     error = ""
     
@@ -39,5 +42,5 @@ def register_view(request):
                "error": error, 
                "username": username, "email": email, "phone_number": phone_number, 
                "password": password, "password_confirmation": password_confirmation}
-    return render(request, "auth/register.html", context)
 
+    return render(request, "auth/register.html", context)
