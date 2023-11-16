@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 
 from .functions.auth import create_user_profile, username_already_used, validate_credentials
 
@@ -84,3 +85,8 @@ def logout_view(request):
 
     previous_page = request.META.get('HTTP_REFERER', '/')
     return redirect(previous_page)
+
+@login_required(login_url="login")
+def settings_view(request):
+    context = ""
+    return render(request, "auth/settings.html", context)
