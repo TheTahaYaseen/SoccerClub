@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
+from django.contrib.auth import login, logout, authenticate
 
-from .functions.auth import create_user_profile, validate_credentials
+from .functions.auth import create_user_profile, username_already_used, validate_credentials
 
 # Create your views here.
 def home_view(request):
@@ -44,3 +45,33 @@ def register_view(request):
                "password": password, "password_confirmation": password_confirmation}
 
     return render(request, "auth/register.html", context)
+
+def login_view(request):
+
+    if request.user.is_authenticated:
+        return redirect("home")
+
+    error = ""
+    page_header = "Login"
+
+    username = ""
+    password = ""
+
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        if not username_already_used(username):
+            error = "User Does Not Exist!"
+        else:
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect("home")
+            else:
+                error = "An Error Occured During Login! Credential Maybe Incorrect!"
+
+    context = {"page_header": page_header, "error": error, 
+               "username": username, "password": password}
+    return render(request, "auth/login.html", context)
