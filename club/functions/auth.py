@@ -82,6 +82,7 @@ def create_user_profile(username, email, phone_number, password):
     try:
         associated_user, created = User.objects.get_or_create(
             username = username,
+            password = password
         )
         user_profile = UserProfile.objects.create(
             associated_user = associated_user,
