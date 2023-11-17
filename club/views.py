@@ -268,7 +268,10 @@ def delete_account_view(request):
 def contact_view(request):
     page_header = "Contact / Feedback"
     error = ""
+
     user = request.user
+    subject = ""
+    message = ""
 
     if request.method == "POST":
         subject = request.POST.get("subject")
