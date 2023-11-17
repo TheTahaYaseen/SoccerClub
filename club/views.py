@@ -310,3 +310,8 @@ def feedback_view(request):
 
     context = {"page_header": page_header, "error": error, "feedbacks": feedbacks}
     return render(request, "admin_interface/feedback.html", context)
+
+def soccer_info_view(request):
+    page_header = "Soccer Info"
+    context = {"page_header": page_header}
+    return render(request, "user_interface/soccer_info.html", context)
