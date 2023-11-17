@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
-from .models import UserProfile
+from .models import Address, UserProfile
 
 from .functions.auth import create_user_profile, username_already_used, validate_credentials
 
@@ -122,5 +122,31 @@ def settings_view(request):
 def add_address_view(request):
     page_header = "Add Address"
     error = ""
+
+    if request.method == "POST":
+        description = request.POST.get("description")
+        suite_or_pobox = request.POST.get("suite_or_pobox")
+        building = request.POST.get("building")
+        street = request.POST.get("street")
+        city = request.POST.get("city")
+        state = request.POST.get("state")
+        postal_code = request.POST.get("postal_code")
+        country = request.POST.get("country")
+
+        fields = [description, suite_or_pobox, building, street, city, state, postal_code, country]
+        if None in fields:
+            error = "Please Donot Leave Any Field Empty!"
+
+        if not error:
+            address = Address.objects.create(
+                description=description, suite_or_pobox=suite_or_pobox, building=building, 
+                street=street, city=city, state=state, postal_code=postal_code, country=country
+            )
+            user = request.user
+            user_profile = UserProfile.objects.get(associated_user=user)
+            user_profile.addresses.add(address)
+            previous_page = request.META.get('HTTP_REFERER', '/')
+            return redirect(previous_page)
+
     context = {"page_header": page_header, "error": error}
     return render(request, "auth/address_form.html", context)
