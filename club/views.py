@@ -121,6 +121,7 @@ def settings_view(request):
     
     return render(request, "auth/settings.html", context)
 
+@login_required(login_url="login")
 def add_address_view(request):
     page_header = "Add Address"
     error = ""
@@ -155,6 +156,7 @@ def add_address_view(request):
                "street": street, "city": city, "state": state, "postal_code": postal_code, "country": country}
     return render(request, "auth/address_form.html", context)
 
+@login_required(login_url="login")
 def update_address_view(request, primary_key):
     
     page_header = "Update Address"
@@ -206,6 +208,7 @@ def update_address_view(request, primary_key):
                "street": street, "city": city, "state": state, "postal_code": postal_code, "country": country}
     return render(request, "auth/address_form.html", context)
 
+@login_required(login_url="login")
 def delete_address_view(request, primary_key):
     
     page_header = "Delete Address"
@@ -222,6 +225,7 @@ def delete_address_view(request, primary_key):
     context = {"page_header": page_header, "error": error, "category": category, "item": item}
     return render(request, "delete.html", context)
 
+@login_required(login_url="login")
 def delete_account_view(request):
     
     page_header = "Delete Account"
