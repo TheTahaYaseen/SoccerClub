@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="site-section">
+    <div class="container mb-5">
+
+      <div class="row mt-5">
+        </div>
+      <div class="row mt-4">
+            {% for feedback in feedbacks %}
+            <div class="col-lg-9 mx-auto">
+              <div class="widget-next-match mt-3">
+                <table class="table custom-table">
+                  <thead>
+                    <tr>
+                      <th>Subject</th>
+                      <th>{{feedback.subject}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong class="text-white">Message</strong></td>
+                      <td>{{feedback.message}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {% endfor %}    
+    </div>
+    </div>
+</div>
+
+{% endblock content %}

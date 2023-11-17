@@ -16,5 +16,6 @@ urlpatterns = [
     path("delete_address/<str:primary_key>", views.delete_address_view, name="delete_address"),
 
     path("contact", views.contact_view, name="contact"),
+    path("feedback", views.feedback_view, name="feedback"),
 
 ]

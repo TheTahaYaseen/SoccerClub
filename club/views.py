@@ -287,3 +287,17 @@ def contact_view(request):
 
     context = {"page_header": page_header, "error": error, "subject": subject, "message": message}
     return render(request, "user_interface/contact.html", context)
+
+@login_required(login_url="login")
+def feedback_view(request):
+
+    if not request.user.is_superuser:
+        previous_page = request.META.get('HTTP_REFERER', '/')
+        return redirect(previous_page)
+
+    page_header = "User Feedbacks"
+    error = ""
+    feedbacks = Feedback.objects.all().order_by('-created')
+
+    context = {"page_header": page_header, "error": error, "feedbacks": feedbacks}
+    return render(request, "admin_interface/feedback.html", context)
