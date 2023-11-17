@@ -204,3 +204,15 @@ def update_address_view(request, primary_key):
                "description": description, "suite_or_pobox": suite_or_pobox, "building": building, 
                "street": street, "city": city, "state": state, "postal_code": postal_code, "country": country}
     return render(request, "auth/address_form.html", context)
+
+def delete_address_view(request, primary_key):
+    
+    page_header = "Delete Address"
+    error = ""
+    address = Address.objects.get(id=primary_key)
+    
+    category = "Address"
+    item = address.description
+
+    context = {"page_header": page_header, "error": error, "category": category, "item": item}
+    return render(request, "delete.html", context)

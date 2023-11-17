@@ -5,12 +5,12 @@
 <div class="site-section">
     <div class="container mb-5">
         <div class="row align-items-center">
-          <div class="col-lg-5 ml-auto">
-            <h1 class="text-white">{{category}}</h1>
-            <p>Are You Sure You Want To Delete {{item}}?</p>
+          <div class="col">
+            <h1 class="text-primary">{{category}}</h1>
+            <h5 class="light mt-4">Are You Sure You Want To Delete {{item}}?</h5>
             <form method="POST">
                 {% csrf_token %}
-                <input type="submit" class="btn btn-primary py-3 px-3">
+                <input type="submit" value="Delete" class="btn btn-primary mt-4 py-3 px-4">
             </form>
         </div>
       </div>
