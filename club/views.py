@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
-from .models import Address, UserProfile
+from .models import Address, Feedback, UserProfile
 
 from .functions.auth import create_user_profile, username_already_used, validate_credentials, authenticate
 
@@ -264,9 +264,26 @@ def delete_account_view(request):
     context = {"page_header": page_header, "error": error, "category": category, "item": item}
     return render(request, "delete.html", context)
 
+@login_required(login_url="login")
 def contact_view(request):
     page_header = "Contact / Feedback"
     error = ""
     user = request.user
-    context = {"page_header": page_header, "error": error}
+
+    if request.method == "POST":
+        subject = request.POST.get("subject")
+        message = request.POST.get("message")
+
+        fields = [subject, message]
+        if None in fields:
+            error = "Please Donot Leave Any Field Empty!"
+        else:
+            try:
+                feedback = Feedback.objects.create(
+                    subject=subject, message=message, given_by=user
+                )
+            except Exception:
+                error = "An Error Occured While Submitting Your Feedback"
+
+    context = {"page_header": page_header, "error": error, "subject": subject, "message": message}
     return render(request, "user_interface/contact.html", context)
