@@ -305,5 +305,8 @@ def feedback_view(request):
     error = ""
     feedbacks = Feedback.objects.all().order_by('-created')
 
+    for feedback in feedbacks:
+        feedback.given_by.username = feedback.given_by.username.title()
+
     context = {"page_header": page_header, "error": error, "feedbacks": feedbacks}
     return render(request, "admin_interface/feedback.html", context)
