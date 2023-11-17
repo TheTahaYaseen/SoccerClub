@@ -6,7 +6,7 @@
     <div class="container mb-5">
         <div class="row">
           <div class="col-lg-7">
-            <p class="text-primary">{{error}}</p>
+            <p class="text-primary">{{credentials_error}}</p>
             <form method="POST">
               {% csrf_token %}
               <div class="form-group">
@@ -24,6 +24,54 @@
             </form>  
           </div>
       </div>
+      <div class="row mt-5">
+          <h2>Addresses</h2>
+        </div>
+      <div class="row mt-3">
+            {% for address in addresses %}
+            <div class="widget-next-match mt-3">
+                <table class="table custom-table">
+                  <thead>
+                    <tr>
+                      <th>Description</th>
+                      <th>{{address.description}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong class="text-white">Suite Or P.O Box</strong></td>
+                      <td>{{address.suite_or_pobox}}</td>
+                    </tr>
+                   <tr>
+                      <td><strong class="text-white">Building</strong></td>
+                      <td>{{address.building}}</td>
+                    </tr>
+                   <tr>
+                      <td><strong class="text-white">Street</strong></td>
+                      <td>{{address.street}}</td>
+                    </tr>
+                   <tr>
+                      <td><strong class="text-white">City</strong></td>
+                      <td>{{address.city}}</td>
+                    </tr>
+                   <tr>
+                      <td><strong class="text-white">State</strong></td>
+                      <td>{{address.state}}</td>
+                    </tr>
+                   <tr>
+                      <td><strong class="text-white">Postal Code</strong></td>
+                      <td>{{address.postal_code}}</td>
+                    </tr>
+                   <tr>
+                      <td><strong class="text-white">Country</strong></td>
+                      <td>{{address.country}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              {% endfor address in addresses %}    
+    </div>
+    </div>
 </div>
 
 {% endblock content %}
