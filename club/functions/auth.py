@@ -33,29 +33,48 @@ def email_already_used(email):
     else:
         return False
 
-def validate_credentials(username, email, phone_number, password, password_confirmation):
+def error_check_username(username):
     error = ""
     if not username:
         error = "Username Cannot Be Empty!"
-    elif not email:
+    elif username_already_used(username):
+        error = "Username Already Used!"
+    return error
+
+def error_check_email(email):
+    error = ""
+    if not email:
         error = "Email Cannot Be Empty!"
-    elif not phone_number:
+    elif not email_validation(email):
+        error = "Please Use A Valid Email!"
+    elif email_already_used(email):
+        error = "Email Already Used!"
+    return error
+
+def error_check_phone_number(phone_number):
+    error = ""
+    if not phone_number:
         error = "Phone Number Cannot Be Empty!"
-    elif not password:
+    elif not phone_number_validation(phone_number):
+        error = "Please Use A Valid Phone Number!"
+    return error
+
+def error_check_password(password, password_confirmation):
+    error = ""
+    if not password:
         error = "Password Cannot Be Empty!"
     elif not password_confirmation:
         error = "Password Confirmation Cannot Be Empty!"
     elif password != password_confirmation:
         error = "Password And Password Confirmation Must Be Same!"
-    elif not email_validation(email):
-        error = "Please Use A Valid Email!"
-    elif not phone_number_validation(phone_number):
-        error = "Please Use A Valid Phone Number!"
-    elif username_already_used(username):
-        error = "Username Already Used!"
-    elif email_already_used(email):
-        error = "Email Already Used!"
+    return error
 
+def validate_credentials(username, email, phone_number, password, password_confirmation):
+    error = ""
+    error = error_check_username(username)                
+    error = error_check_email(email)                
+    error = error_check_phone_number(phone_number)                
+    error = error_check_password(password)                
     return error
 
 def create_user_profile(username, email, phone_number, password):
