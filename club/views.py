@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 from .models import Address, UserProfile
 
@@ -212,11 +213,29 @@ def delete_address_view(request, primary_key):
     address = Address.objects.get(id=primary_key)
     
     category = "Address"
-    item = address.description
+    item = f"Address Of {address.description}"
 
     if request.method == "POST":
         address.delete()
         return redirect("settings")
+
+    context = {"page_header": page_header, "error": error, "category": category, "item": item}
+    return render(request, "delete.html", context)
+
+def delete_account_view(request):
+    
+    page_header = "Delete Account"
+    error = ""
+    user = request.user
+    user_profile = UserProfile.objects.get(associated_user=user)
+
+    category = "Account"
+    item = f"User Profile Of {user.username}"
+
+    if request.method == "POST":
+        user.delete()
+        user_profile.delete()
+        return redirect("login")
 
     context = {"page_header": page_header, "error": error, "category": category, "item": item}
     return render(request, "delete.html", context)
