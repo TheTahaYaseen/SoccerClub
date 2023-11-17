@@ -118,3 +118,9 @@ def settings_view(request):
                "username": username, "email": email, "phone_number": phone_number}
     
     return render(request, "auth/settings.html", context)
+
+def add_address_view(request):
+    page_header = "Add Address"
+    error = ""
+    context = {"page_header": page_header, "error": error}
+    return render(request, "auth/address_form.html", context)

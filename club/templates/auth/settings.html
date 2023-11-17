@@ -25,7 +25,8 @@
           </div>
       </div>
       <div class="row mt-5">
-          <h2>Addresses</h2>
+          <h3>Addresses</h3>
+          <a href="{% url 'add_address'}" class="ml-auto"><button type="button" class="btn btn-primary">Add</button></a>
         </div>
       <div class="row mt-3">
             {% for address in addresses %}
