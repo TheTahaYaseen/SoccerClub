@@ -93,6 +93,10 @@ def logout_view(request):
 @login_required(login_url="login")
 def settings_view(request):
 
+    if request.user.is_superuser:
+        previous_page = request.META.get('HTTP_REFERER', '/')
+        return redirect(previous_page)
+
     page_header = "Settings"
     error = ""
 
