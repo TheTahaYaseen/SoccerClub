@@ -216,7 +216,7 @@ def delete_address_view(request, primary_key):
     address = Address.objects.get(id=primary_key)
     
     category = "Address"
-    item = f"Address Of {address.description}"
+    item = f"Address Of Description \"{address.description}\""
 
     if request.method == "POST":
         address.delete()
@@ -234,7 +234,7 @@ def delete_account_view(request):
     user_profile = UserProfile.objects.get(associated_user=user)
 
     category = "Account"
-    item = f"User Profile Of {user.username}"
+    item = f"Your Account With Username \"{user.username}\""
 
     if request.method == "POST":
         user.delete()
