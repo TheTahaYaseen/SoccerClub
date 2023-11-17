@@ -1,11 +1,10 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 
 from .models import Address, UserProfile
 
-from .functions.auth import create_user_profile, username_already_used, validate_credentials
+from .functions.auth import create_user_profile, username_already_used, validate_credentials, authenticate
 
 # Create your views here.
 def home_view(request):
@@ -69,7 +68,7 @@ def login_view(request):
         if not username_already_used(username):
             error = "User Does Not Exist!"
         else:
-            user = authenticate(request, username=username, password=password)
+            user = authenticate(username=username, password=password)
 
             if user is not None:
                 login(request, user)

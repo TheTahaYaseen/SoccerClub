@@ -6,6 +6,8 @@ import phonenumbers
 from django.contrib.auth.models import User
 from ..models import UserProfile
 
+from django.contrib.auth.hashers import check_password
+
 def email_validation(email):    
     try:
         validate_email(email)
@@ -92,3 +94,11 @@ def create_user_profile(username, email, phone_number, password):
     except Exception:
         error = "An Error Occured While Registering You!"
     return [error, associated_user]
+
+def authenticate(username, password):
+    user = User.objects.filter(username=username).first()
+
+    if user and check_password(password, user.password):
+        return user
+    else:
+        return None
