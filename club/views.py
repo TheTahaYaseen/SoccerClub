@@ -100,9 +100,21 @@ def settings_view(request):
 
     username = user.username
     email = user_profile.email
-    phone_number = user_profile.phone_number
-    password = user.password
+    phone_number = user_profile.phone_number    
+
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        phone_number = request.POST.get("phone_number")
+
+        user.username = username
+        user_profile.email = email
+        user_profile.phone_number = phone_number
+        user.save()
+        user_profile.save()
+
 
     context = {"page_header": page_header, "error": error, 
                "username": username, "email": email, "phone_number": phone_number}
+    
     return render(request, "auth/settings.html", context)
