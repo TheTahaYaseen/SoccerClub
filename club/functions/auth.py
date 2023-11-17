@@ -74,7 +74,7 @@ def validate_credentials(username, email, phone_number, password, password_confi
     error = error_check_username(username)                
     error = error_check_email(email)                
     error = error_check_phone_number(phone_number)                
-    error = error_check_password(password)                
+    error = error_check_password(password, password_confirmation)                
     return error
 
 def create_user_profile(username, email, phone_number, password):
