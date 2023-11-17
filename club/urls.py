@@ -12,5 +12,6 @@ urlpatterns = [
     path("add_address", views.add_address_view, name="add_address"),
     path("update_address/<str:primary_key>", views.update_address_view, name="update_address"),
     path("delete_address/<str:primary_key>", views.delete_address_view, name="delete_address"),
+    path("delete_account", views.delete_account_view, name="delete_account"),
 
 ]
