@@ -285,6 +285,9 @@ def contact_view(request):
                 feedback = Feedback.objects.create(
                     subject=subject, message=message, given_by=user
                 )
+                error = "Your Feedback Has Been Given!"
+                subject = ""
+                message = ""
             except Exception:
                 error = "An Error Occured While Submitting Your Feedback"
 
