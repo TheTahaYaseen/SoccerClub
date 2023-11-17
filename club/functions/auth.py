@@ -64,11 +64,11 @@ def create_user_profile(username, email, phone_number, password):
         associated_user, created = User.objects.get_or_create(
             username = username,
         )
-        UserProfile.objects.create(
+        user_profile = UserProfile.objects.create(
             associated_user = associated_user,
             email = email,
             phone_number = phone_number
         )
     except Exception:
         error = "An Error Occured While Registering You!"
-    return error
+    return [error, associated_user]

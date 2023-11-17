@@ -2,6 +2,8 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
+from .models import UserProfile
+
 from .functions.auth import create_user_profile, username_already_used, validate_credentials
 
 # Create your views here.
@@ -35,9 +37,10 @@ def register_view(request):
         error = validate_credentials(username, email, phone_number, password, password_confirmation)
 
         if not error:
-            error = create_user_profile(username, email, phone_number, password)
+            error, user = create_user_profile(username, email, phone_number, password)
 
             if not error:
+                login(request, user=user)
                 return redirect("home")
 
     context = {"page_header": page_header, 
@@ -88,5 +91,18 @@ def logout_view(request):
 
 @login_required(login_url="login")
 def settings_view(request):
-    context = ""
+
+    page_header = "Settings"
+    error = ""
+
+    user = request.user
+    user_profile = UserProfile.objects.get(associated_user = user)
+
+    username = user.username
+    email = user_profile.email
+    phone_number = user_profile.phone_number
+    password = user.password
+
+    context = {"page_header": page_header, "error": error, 
+               "username": username, "email": email, "phone_number": phone_number}
     return render(request, "auth/settings.html", context)
