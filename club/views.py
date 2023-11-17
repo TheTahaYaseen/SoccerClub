@@ -214,5 +214,9 @@ def delete_address_view(request, primary_key):
     category = "Address"
     item = address.description
 
+    if request.method == "POST":
+        address.delete()
+        return redirect("settings")
+
     context = {"page_header": page_header, "error": error, "category": category, "item": item}
     return render(request, "delete.html", context)
