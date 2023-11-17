@@ -127,6 +127,11 @@ def settings_view(request):
 
 @login_required(login_url="login")
 def add_address_view(request):
+    
+    if request.user.is_superuser:
+        previous_page = request.META.get('HTTP_REFERER', '/')
+        return redirect(previous_page)
+
     page_header = "Add Address"
     error = ""
     action = "Add"
@@ -163,6 +168,10 @@ def add_address_view(request):
 @login_required(login_url="login")
 def update_address_view(request, primary_key):
     
+    if request.user.is_superuser:
+        previous_page = request.META.get('HTTP_REFERER', '/')
+        return redirect(previous_page)
+
     page_header = "Update Address"
     error = ""
     action = "Update"
@@ -214,6 +223,10 @@ def update_address_view(request, primary_key):
 
 @login_required(login_url="login")
 def delete_address_view(request, primary_key):
+
+    if request.user.is_superuser:
+        previous_page = request.META.get('HTTP_REFERER', '/')
+        return redirect(previous_page)
     
     page_header = "Delete Address"
     error = ""
@@ -231,6 +244,10 @@ def delete_address_view(request, primary_key):
 
 @login_required(login_url="login")
 def delete_account_view(request):
+
+    if request.user.is_superuser:
+        previous_page = request.META.get('HTTP_REFERER', '/')
+        return redirect(previous_page)
     
     page_header = "Delete Account"
     error = ""
