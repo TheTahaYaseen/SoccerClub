@@ -247,3 +247,10 @@ def delete_account_view(request):
 
     context = {"page_header": page_header, "error": error, "category": category, "item": item}
     return render(request, "delete.html", context)
+
+def contact_view(request):
+    page_header = "Contact / Feedback"
+    error = ""
+    user = request.user
+    context = {"page_header": page_header, "error": error}
+    return render(request, "user_interface/contact.html", context)
