@@ -113,8 +113,9 @@ def settings_view(request):
         user.save()
         user_profile.save()
 
+    addresses = user_profile.addresses.all()
 
-    context = {"page_header": page_header, "error": error, 
+    context = {"page_header": page_header, "error": error, "addresses": addresses,
                "username": username, "email": email, "phone_number": phone_number}
     
     return render(request, "auth/settings.html", context)
