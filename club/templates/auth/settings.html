@@ -28,9 +28,10 @@
           <h3>Addresses</h3>
           <a href="{% url 'add_address' %}" class="ml-auto"><button type="button" class="btn btn-primary">Add</button></a>
         </div>
-      <div class="row mt-3">
+      <div class="row mt-4">
             {% for address in addresses %}
             <div class="col-lg-9 mx-auto">
+              <a href="{% url 'update_address' address.id %}" class="mr-auto"><button type="button" class="btn btn-primary">Update</button></a>
               <div class="widget-next-match mt-3">
                 <table class="table custom-table">
                   <thead>

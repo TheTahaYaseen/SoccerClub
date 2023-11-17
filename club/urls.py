@@ -10,5 +10,6 @@ urlpatterns = [
     path("settings", views.settings_view, name="settings"),
 
     path("add_address", views.add_address_view, name="add_address"),
+    path("update_address/<str:primary_key>", views.update_address_view, name="update_address"),
 
 ]

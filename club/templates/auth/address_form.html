@@ -6,7 +6,7 @@
     <div class="container mb-5">
       <p class="text-primary">{{error}}</p>
       <div class="row">
-        <div class="col-lg-9 mx-auto`">
+        <div class="col-lg-7 mx-auto">
           <form method="POST">
             {% csrf_token %}
             <div class="form-group">
@@ -34,7 +34,7 @@
               <input type="text" class="form-control" placeholder="Country" name="country" value="{{country}}">
             </div>
             <div class="form-group">
-              <input type="submit" class="btn btn-primary py-3 px-5" value="Add">
+              <input type="submit" class="btn btn-primary py-3 px-5" value="{{action}}">
             </div>
           </form>  
         </div>

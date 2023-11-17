@@ -123,6 +123,7 @@ def settings_view(request):
 def add_address_view(request):
     page_header = "Add Address"
     error = ""
+    action = "Add"
 
     if request.method == "POST":
         description = request.POST.get("description")
@@ -146,8 +147,60 @@ def add_address_view(request):
             user = request.user
             user_profile = UserProfile.objects.get(associated_user=user)
             user_profile.addresses.add(address)
-            previous_page = request.META.get('HTTP_REFERER', '/')
-            return redirect(previous_page)
+            return redirect("settings")
 
-    context = {"page_header": page_header, "error": error}
+    context = {"page_header": page_header, "error": error, "action": action,
+               "description": description, "suite_or_pobox": suite_or_pobox, "building": building, 
+               "street": street, "city": city, "state": state, "postal_code": postal_code, "country": country}
+    return render(request, "auth/address_form.html", context)
+
+def update_address_view(request, primary_key):
+    
+    page_header = "Update Address"
+    error = ""
+    action = "Update"
+    address = Address.objects.get(id=primary_key)
+
+    description = address.description
+    suite_or_pobox = address.suite_or_pobox
+    building = address.building
+    street = address.street
+    city = address.city
+    state = address.state
+    postal_code = address.postal_code
+    country = address.country
+
+    if request.method == "POST":
+        description = request.POST.get("description")
+        suite_or_pobox = request.POST.get("suite_or_pobox")
+        building = request.POST.get("building")
+        street = request.POST.get("street")
+        city = request.POST.get("city")
+        state = request.POST.get("state")
+        postal_code = request.POST.get("postal_code")
+        country = request.POST.get("country")
+
+        fields = [description, suite_or_pobox, building, street, city, state, postal_code, country]
+        if None in fields:
+            error = "Please Donot Leave Any Field Empty!"
+
+        if not error:
+            address.description = description
+            address.suite_or_pobox = suite_or_pobox
+            address.building = building
+            address.street = street
+            address.city = city
+            address.state = state
+            address.postal_code = postal_code
+            address.country = country
+
+            address.save()
+            user = request.user
+            user_profile = UserProfile.objects.get(associated_user=user)
+            user_profile.addresses.add(address)
+            return redirect("settings")
+
+    context = {"page_header": page_header, "error": error, "action": action,
+               "description": description, "suite_or_pobox": suite_or_pobox, "building": building, 
+               "street": street, "city": city, "state": state, "postal_code": postal_code, "country": country}
     return render(request, "auth/address_form.html", context)
