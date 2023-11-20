@@ -15,6 +15,18 @@ urlpatterns = [
     path("update_address/<str:primary_key>", views.update_address_view, name="update_address"),
     path("delete_address/<str:primary_key>", views.delete_address_view, name="delete_address"),
 
+    path("add_match", views.add_match_view, name="add_match"),
+    path("update_match/<str:primary_key>", views.update_match_view, name="update_match"),
+    path("delete_match/<str:primary_key>", views.delete_match_view, name="delete_match"),
+
+    path("add_player", views.add_player_view, name="add_player"),
+    path("update_player/<str:primary_key>", views.update_player_view, name="update_player"),
+    path("delete_player/<str:primary_key>", views.delete_player_view, name="delete_player"),
+
+    path("add_merch", views.add_merch_view, name="add_merch"),
+    path("update_merch/<str:primary_key>", views.update_merch_view, name="update_merch"),
+    path("delete_merch/<str:primary_key>", views.delete_merch_view, name="delete_merch"),
+
     path("contact", views.contact_view, name="contact"),
     path("feedback", views.feedback_view, name="feedback"),
 
