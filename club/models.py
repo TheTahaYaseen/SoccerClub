@@ -27,3 +27,36 @@ class Feedback(models.Model):
     message = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+class League(models.Model):
+    name = models.CharField(max_length=255)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+class Trophy(models.Model):
+    name = models.CharField(max_length=255)
+    league = models.ForeignKey(League, on_delete=models.SET_NULL, null=True)
+
+class TeamType(models.Model):
+    type = models.CharField(max_length=255)
+
+class Team(models.Model):
+    name = models.CharField(max_length=255)
+    type = models.ForeignKey(TeamType, on_delete=models.SET_NULL, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+class Player(models.Model):
+    name = models.CharField(max_length=255)
+    jersey_number = models.IntegerField(max_length=2)
+    country = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True)
+    club = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True) 
+    trophies = models.ManyToManyField(Trophy, on_delete=models.SET_NULL)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+class Match(models.Model):
+    league = models.ForeignKey(League, on_delete=models.SET_NULL, null=True)
+    scheduled_date_and_time = models.DateTimeField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
