@@ -315,3 +315,48 @@ def soccer_info_view(request):
     page_header = "Soccer Info"
     context = {"page_header": page_header}
     return render(request, "user_interface/soccer_info.html", context)
+
+def add_match(request):
+    page_header = "Add Match"
+    context = {"page_header": page_header}
+    return render(request, "user_interface/match_form.html", context)
+
+def update_match(request):
+    page_header = "Update Match"
+    context = {"page_header": page_header}
+    return render(request, "user_interface/match_form.html", context)
+
+def delete_match(request):
+    page_header = "Delete Match"
+    context = {"page_header": page_header}
+    return render(request, "user_interface/delete.html", context)
+
+def add_merch(request):
+    page_header = "Add Merch"
+    context = {"page_header": page_header}
+    return render(request, "user_interface/merch_form.html", context)
+
+def update_merch(request):
+    page_header = "Update Merch"
+    context = {"page_header": page_header}
+    return render(request, "user_interface/merch_form.html", context)
+
+def delete_merch(request):
+    page_header = "Delete Merch"
+    context = {"page_header": page_header}
+    return render(request, "user_interface/delete.html", context)
+
+def add_player(request):
+    page_header = "Add Player"
+    context = {"page_header": page_header}
+    return render(request, "user_interface/player_form.html", context)
+
+def update_player(request):
+    page_header = "Update Player"
+    context = {"page_header": page_header}
+    return render(request, "user_interface/player_form.html", context)
+
+def delete_player(request):
+    page_header = "Delete Player"
+    context = {"page_header": page_header}
+    return render(request, "user_interface/delete.html", context)
